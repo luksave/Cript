@@ -26,6 +26,7 @@ Usando criptografia no envio de um e-mail.
 2. Usar a chave privada do destinatário para descriptografar a chave usada no AES.
 3. Usar a chave descriptografa do AES para descriptografar a mensagem do e-mail.
 4. Calcular o Hash MD5 da mensagem obtida em 3 usando a chave pública do remetente.
+5. Comparar o hash obtido em 1 com o obtido em 4 para saber se a mensagem não foi alterada.
 
 
 ##### *PROBLEMA:* Como encontrar as chaves públicas do remetente e do destinatário?
