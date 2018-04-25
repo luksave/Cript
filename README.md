@@ -7,7 +7,6 @@ Usando criptografia no envio de um e-mail.
 * Gerador de chaves: classe KeyGenerator
 * Função de hash: MD5
 * Algoritmo de criptografia: AES
-* Servidor de integração contínua: Travis-CI
 
 ## O que fazer
 - Implementar uso do g-mail através da aplicação.
