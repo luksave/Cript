@@ -3,6 +3,7 @@ Usando criptografia no envio de um e-mail.
 
 ### Padrão
 * Linguagem: Java
+* Arquitetura: Cliente-Servidor
 * Gerador de chaves: classe KeyGenerator
 * Função de hash: MD5
 * Algoritmo de criptografia: AES
