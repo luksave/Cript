@@ -6,7 +6,8 @@ Usando criptografia no envio de um e-mail.
 * Arquitetura: Cliente-Servidor
 * Gerador de chaves: classe KeyGenerator
 * Função de hash: MD5
-* Algoritmo de criptografia: AES
+* Algoritmo de criptografia: AES 
+* Nunca adicionar os binários (Pasta build, build.xml) e o manifesto
 
 ## O que fazer
 - Implementar uso do g-mail através da aplicação.
