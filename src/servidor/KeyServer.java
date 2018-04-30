@@ -59,8 +59,8 @@ public class KeyServer {
             this.clientNumber = clientNumber;
             
             System.out.print
-                ("Nova conexão \n"
-                +"Cliente# " + clientNumber + " em " + socket);
+                ("\nNova conexão:\n"
+                +"Cliente# " + clientNumber + "\n\tem: " + socket);
         }
         
         //Para esse cliente/thread faça:
@@ -74,7 +74,7 @@ public class KeyServer {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
                 //Mensagem de boas vindas.
-                out.println("Olá, você é o cliente #" + clientNumber + ".");
+                out.println("Olá, você é o cliente: " + clientNumber + ".");
                 out.println("Informe seu ID e sua chave pública no formato"
                            +"ID-CHAVE\n");
             

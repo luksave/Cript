@@ -22,7 +22,7 @@ public class MessageClient {
     
     private BufferedReader in;
     private PrintWriter out;
-    private final JFrame frame = new JFrame("Cliente de Email");
+    private final JFrame frame = new JFrame("Cliente de Chaves");
     private JTextField dataField = new JTextField(40);
     private JTextArea messageArea = new JTextArea(8, 60);
     /**
@@ -37,7 +37,10 @@ public class MessageClient {
         messageArea.setEditable(false);
         frame.getContentPane().add(dataField, "North");
         frame.getContentPane().add(new JScrollPane(messageArea), "Center");
-
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setSize(200, 200);
+        
         // Add Listeners
         dataField.addActionListener(new ActionListener() {
             /**
@@ -72,11 +75,10 @@ public class MessageClient {
     public static void main(String[] args) throws IOException {
     
         MessageClient client = new MessageClient();
-        client.connectToServer();
         client.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         client.frame.pack();
         client.frame.setVisible(true);
-        System.exit(0);
+        client.connectToServer();
         
     }
     
@@ -87,11 +89,12 @@ public class MessageClient {
             "Informe o endereço IP do servidor:",
             "Bem vindo ao servidor de chaves públicas",
             JOptionPane.QUESTION_MESSAGE);
-
+        
         //Faz a conexão e inicializa as streams
         Socket socket = new Socket(serverAddress, 9090);
+       
         in = new BufferedReader(
-                new InputStreamReader(socket.getInputStream()));
+           new InputStreamReader(socket.getInputStream()));
 
         out = new PrintWriter(socket.getOutputStream(), true);
 
@@ -100,6 +103,8 @@ public class MessageClient {
         for (int i = 0; i < 3; i++) {
             messageArea.append(in.readLine() + "\n");
         }
+        
+        
     }
     
 }
