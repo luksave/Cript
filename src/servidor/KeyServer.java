@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A TCP server that runs on port 9090.  When a client connects, it
@@ -19,6 +21,8 @@ import java.net.Socket;
  */
 public class KeyServer {
     
+    public static List<IDChave> storage = new ArrayList<>();
+    
     /**
      * Executa o server.
      * FIca escutando a porta 9090
@@ -27,6 +31,7 @@ public class KeyServer {
      */
     public static void main(String[] args) throws IOException {
         int clientes = 0;
+        
         ServerSocket listener = new ServerSocket(9090);
         
         System.out.print("Executando o servidor de chaves \nClientes:" +clientes);
@@ -61,7 +66,7 @@ public class KeyServer {
         //Para esse cliente/thread faça:
         @Override
         public void run(){
-            IDChave chave = new IDChave();
+            IDChave idchave = new IDChave();
             
             try{
                 BufferedReader in = new BufferedReader(
@@ -78,16 +83,21 @@ public class KeyServer {
                     String[] dados;
                     String input = in.readLine();
                     
-                    dados = input.split("-");
-                    
-                    setID(dados[0]);
-                    this.ID = dados[0];
-                    
-                    
-                    if (input == null || input.equals(".")) {
+                    if (input == null) {
                         break;
                     }
-                    out.println(input.toUpperCase());
+                    
+                    //Separa a String em ID e Chave usando o caractere - como 
+                    //separador
+                    dados = input.split("-");
+                    
+                    //Insere os valores lidos dentro do objeto idchave
+                    idchave.setID   (dados[0]);
+                    idchave.setChave(dados[1]);
+                    
+                    storage.add(idchave);
+                    
+                    out.println("Chave armazenada");
                 }
                 
             }
