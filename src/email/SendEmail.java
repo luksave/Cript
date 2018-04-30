@@ -11,36 +11,35 @@ import javax.mail.internet.*;
  */
 public class SendEmail {
     
-    public SendEmail(String Dest, String Sub){
+    public SendEmail(Gmail remetente, String destinatario, String assunto){
+        
+        //Destinatário
+        String to  = destinatario;            
+
+        //Assunto do Email
+        String sub = assunto;
         
         Properties prop = new Properties();
-        
-        LoginGmail login = new LoginGmail();
                 
         prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         prop.put("mail.smtp.auth", true);
         prop.put("mail.smtp.starttls.enable", true);
         prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "587");
-        
+       
         Session session = Session.getInstance(prop, new javax.mail.Authenticator(){
   
+            @Override
             protected javax.mail.PasswordAuthentication getPasswordAuthentication(){
            
-                return new javax.mail.PasswordAuthentication(login.getUser(), login.getPass());
+                return new javax.mail.PasswordAuthentication(remetente.getUser(), remetente.getPass());
                 
             }
  
         });
- 
-        
+            
         try{
         
-            //Destinatário
-            String to  = "some_mail@gmail.com";            
-            //Assunto do Email
-            String sub = "Test Mail";
-            
             //Cria mensagem com múltiplas partes
             MimeMessage message      = new MimeMessage(session);
             //Cria o corpo da mensagem
@@ -49,7 +48,7 @@ public class SendEmail {
             Multipart multipart      = new MimeMultipart();
 
             //Set Remetente
-            message.setFrom(new InternetAddress(login.getUser()));
+            message.setFrom(new InternetAddress(remetente.getUser()));
             //Set Destinatário
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             //Set Assunto 
@@ -89,17 +88,14 @@ public class SendEmail {
 
             //Envia a mensage
             Transport.send(message);
-            System.out.println("Mensagem enviada");
+            System.out.println("Mensagem enviada\n");
             
         }
 
         catch(Exception e){
-            
+            System.out.print("Erro: " + e +"\n");
         }
-
-            
         
     }
-    
-    
+
 }

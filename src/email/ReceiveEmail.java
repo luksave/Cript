@@ -13,11 +13,9 @@ public class ReceiveEmail {
 
     private String receivingHost;
                 
-    public ReceiveEmail(){
+    public ReceiveEmail(Gmail login){
     
         Properties prop = new Properties();
-        
-        LoginGmail login = new LoginGmail();
         
         this.receivingHost = "imaps.gmail.com";
         
@@ -30,6 +28,7 @@ public class ReceiveEmail {
         
         Session session = Session.getInstance(prop, new javax.mail.Authenticator(){
 
+            @Override
             protected javax.mail.PasswordAuthentication getPasswordAuthentication(){
 
                 return new javax.mail.PasswordAuthentication(login.getUser(), login.getPass());
