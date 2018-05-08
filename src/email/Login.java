@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package email;
-
-import javax.swing.JOptionPane;
 
 /**
  *
- * @author Bruno
- */
+ * @author Bruno e Lucas
+ */ 
+import javax.swing.JOptionPane;
+
 public class Login extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewJFrame
+     * Cria um novo form NewJFrame
      */
     public Login() {
         initComponents();

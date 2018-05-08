@@ -1,12 +1,12 @@
 package email;
 
+/**
+ *
+ * @author Bruno e Lucas
+ */
 import java.util.*;
 import javax.mail.*;
 
-/**
- *
- * @author lucas
- */
 public class Gmail {
     
     private String user;

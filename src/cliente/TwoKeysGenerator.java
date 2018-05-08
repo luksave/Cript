@@ -1,11 +1,12 @@
 package cliente;
 
-import java.security.*;
 /**
  *
  * @author Bruno e Lucas
  */
-public class KeyGenerator {
+import java.security.*;
+
+public class TwoKeysGenerator {
     
     private final KeyPairGenerator geraChave;
     
@@ -13,10 +14,11 @@ public class KeyGenerator {
     private final StringBuffer chavePrivada = new StringBuffer();
     
     //Costrutor das chaves
-    public KeyGenerator() throws NoSuchAlgorithmException{
+    public TwoKeysGenerator() throws NoSuchAlgorithmException{
         this.geraChave = KeyPairGenerator.getInstance("RSA");
-        this.geraChave.initialize(512);//Esse parâmetro refere-se ao tamanho da chave
-
+        this.geraChave.initialize(512);//Esse parâmetro refere-se ao tamanho da chave 
+                                       //Para RSA o tamanho da chave é de pelo menos 512 bits
+        
         byte[] chaveMais = geraChave.genKeyPair().getPublic().getEncoded();
         byte[] chaveMenos = geraChave.genKeyPair().getPrivate().getEncoded();
         

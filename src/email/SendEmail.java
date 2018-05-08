@@ -1,13 +1,13 @@
 package email;
 
+/**
+ *
+ * @author Bruno e Lucas
+ */
 import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-/**
- *
- * @author lucas
- */
 public class SendEmail {
     
     public SendEmail(Gmail remetente, String destinatario, String assunto){

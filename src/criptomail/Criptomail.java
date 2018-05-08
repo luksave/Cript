@@ -1,11 +1,11 @@
 package criptomail;
 
-import email.Login;
-
 /**
  *
- * @author lucas and bruno
+ * @author Bruno e Lucas
  */
+import email.Login;
+
 public class Criptomail {
 
     /**

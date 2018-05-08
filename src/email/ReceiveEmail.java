@@ -1,71 +1,64 @@
 package email;
 
+/**
+ *
+ * @author Bruno e Lucas
+ */
 import java.io.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-/**
- *
- * @author lucas
- */
 public class ReceiveEmail {
-
-                
+   
     public ReceiveEmail(Gmail login){
     
         try {
             
-            Store store = login.getSession().getStore("imaps");
-            
-            store.connect(login.getReceivingHost(), login.getUser(), login.getPass());
-            
-            Folder folder = store.getFolder("https://mail.google.com/mail/u/0/#inbox");
-            
-            folder.open(Folder.READ_ONLY);
-            
-            Message message[] = folder.getMessages();
-            
-            for (Message message1 : message) {
+            try (Store store = login.getSession().getStore("imaps")) {
+                store.connect(login.getReceivingHost(), login.getUser(), login.getPass());
                 
-                String contentType = message1.getContentType();
-                
-                //Esse email pode conter anexos
-                if (contentType.contains("multipart")) {
-                    Multipart multiPart = (Multipart) message1.getContent();
-                
-                    //Imprime o assunto do email
-                    System.out.println(message1.getSubject());
-                    
-                    for (int j = 0; j < multiPart.getCount(); j++) {
-                   
-                        MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(j);
+                try (Folder folder = store.getFolder("https://mail.google.com/mail/u/0/#inbox")) {
+                    folder.open(Folder.READ_ONLY);
+                    Message message[] = folder.getMessages();
+                    for (Message message1 : message) {
+                        String contentType = message1.getContentType();
                         
-                        if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition())) {
+                        //Esse email pode conter anexos
+                        if (contentType.contains("multipart")) {
+                            Multipart multiPart = (Multipart) message1.getContent();
                             
-                            //Salvando o anexo como um  arquivo
-                            String caminhoAnexos = "../Anexos/" + part.getFileName();
- 
-                            FileOutputStream saida = new FileOutputStream(caminhoAnexos);
-
-                            InputStream entrada = part.getInputStream();
-
-                            byte[] buffer = new byte[4096];
-
-                            int byteLido;
+                            //Imprime o assunto do email
+                            System.out.println(message1.getSubject());
                             
-                            while ((byteLido = entrada.read(buffer)) != -1) 
-                                saida.write(buffer, 0, byteLido);
-                            
-                            saida.close();
-                            
+                            for (int j = 0; j < multiPart.getCount(); j++) {
+                                
+                                MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(j);
+                                
+                                if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition())) {
+                                    
+                                    //Salvando o anexo como um  arquivo
+                                    String caminhoAnexos = "../Anexos/" + part.getFileName();
+                                    
+                                    FileOutputStream saida = new FileOutputStream(caminhoAnexos);
+                                    
+                                    InputStream entrada = part.getInputStream();
+                                    
+                                    byte[] buffer = new byte[4096];
+                                    
+                                    int byteLido;
+                                    
+                                    while ((byteLido = entrada.read(buffer)) != -1)
+                                        saida.write(buffer, 0, byteLido);
+                                    
+                                    saida.close();
+                                    
+                                }
+                            }
                         }
                     }
+                    //Fechando as conexões
                 }
             }
-            
-            //Fechando as conexões
-            folder.close();
-            store.close();
             
         } 
         catch (NoSuchProviderException ex) {
