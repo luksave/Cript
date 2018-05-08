@@ -2,7 +2,7 @@ package email;
 
 /**
  *
- * @author Bruno e Lucas
+ * @author lucas
  */
 public class Box {
 

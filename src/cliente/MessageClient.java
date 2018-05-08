@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Bruno e Lucas
+ * @author lucas
  */
 public class MessageClient {
     
@@ -51,7 +51,11 @@ public class MessageClient {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                out.println(dataField.getText());
+                
+                StringBuffer envio = new StringBuffer();
+                envio.append(dataField.getText());
+                
+                out.println(envio);
                    String response;
                 
                 try {

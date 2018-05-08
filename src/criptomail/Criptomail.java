@@ -1,10 +1,10 @@
 package criptomail;
 
-import email.login;
+import email.Login;
 
 /**
  *
- * @author Bruno e Lucas
+ * @author lucas and bruno
  */
 public class Criptomail {
 
@@ -14,7 +14,7 @@ public class Criptomail {
         public static void main(String[] args) {
         // TODO code application logic here
         
-        login tela = new login();
+        Login tela = new Login();
         
         tela.setVisible(true);
     }

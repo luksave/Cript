@@ -2,7 +2,7 @@ package servidor;
 
 /**
  *
- * @author Bruno e Lucas
+ * @author lucas
  */
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -60,7 +60,7 @@ public class KeyServer {
             
             System.out.print
                 ("\nNova conexão:\n"
-                +"Cliente# " + clientNumber + "\n\tem: " + socket);
+                +"Cliente# " + clientNumber + "\n\tSocket: " + socket);
         }
         
         //Para esse cliente/thread faça:
@@ -74,9 +74,7 @@ public class KeyServer {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
                 //Mensagem de boas vindas.
-                out.println("Olá, você é o cliente: " + clientNumber + ".");
-                out.println("Informe seu ID e sua chave pública no formato"
-                           +"ID-CHAVE\n");
+                out.println("Cliente: " + clientNumber);
             
                 //Receber a mensagem do cliente
                 while (true) {

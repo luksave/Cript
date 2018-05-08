@@ -5,7 +5,7 @@ import javax.mail.*;
 
 /**
  *
- * @author Bruno e Lucas
+ * @author lucas
  */
 public class Gmail {
     

@@ -2,7 +2,7 @@ package servidor;
 
 /**
  *
- * @author Bruno e Lucas
+ * @author lucas
  */
 public class IDChave {
     

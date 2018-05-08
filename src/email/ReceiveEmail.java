@@ -6,7 +6,7 @@ import javax.mail.internet.*;
 
 /**
  *
- * @author Bruno e Lucas
+ * @author lucas
  */
 public class ReceiveEmail {
 

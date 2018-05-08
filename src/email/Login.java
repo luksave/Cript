@@ -9,14 +9,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Bruno e Lucas
+ * @author Bruno
  */
-public class login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public login() {
+    public Login() {
         initComponents();
     }
 
@@ -47,9 +47,9 @@ public class login extends javax.swing.JFrame {
 
         jPassword.setText("********");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("../../imgs/password-inventor.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/email/../imgs/password-inventor.png"))); // NOI18N
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("../../imgs/723537121.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/email/../imgs/723537121.png"))); // NOI18N
 
         jButtonEntrar.setBackground(new java.awt.Color(0, 51, 204));
         jButtonEntrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -61,7 +61,7 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("../../imgs/Gmail-icon.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/email/../imgs/Gmail-icon.png"))); // NOI18N
 
         jLabel1.setText("SAS - 2018/1 | Criptomail v1.0");
 
@@ -130,7 +130,7 @@ public class login extends javax.swing.JFrame {
       if(logar.getLogged()){
           JOptionPane.showMessageDialog(this,"Login efetuado com sucesso!","Login",JOptionPane.INFORMATION_MESSAGE);
           this.setVisible(false);
-          InterfaceDaAplicação.setVisible(true);
+         // InterfaceDaAplicação.setVisible(true);
           //TODO - Gerar e enviar a chave para o servidor
       }
       
@@ -159,21 +159,23 @@ public class login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new login().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
