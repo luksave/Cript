@@ -1,13 +1,12 @@
 package email;
 
-import java.util.Properties;
 import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
 /**
  *
- * @author lucas
+ * @author Bruno e Lucas
  */
 public class SendEmail {
     
@@ -15,33 +14,13 @@ public class SendEmail {
         
         //Destinatário
         String to  = destinatario;            
-
         //Assunto do Email
         String sub = assunto;
-        
-        Properties prop = new Properties();
-                
-        prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        prop.put("mail.smtp.auth", true);
-        prop.put("mail.smtp.starttls.enable", true);
-        prop.put("mail.smtp.host", "smtp.gmail.com");
-        prop.put("mail.smtp.port", "587");
-       
-        Session session = Session.getInstance(prop, new javax.mail.Authenticator(){
-  
-            @Override
-            protected javax.mail.PasswordAuthentication getPasswordAuthentication(){
-           
-                return new javax.mail.PasswordAuthentication(remetente.getUser(), remetente.getPass());
-                
-            }
- 
-        });
             
         try{
         
             //Cria mensagem com múltiplas partes
-            MimeMessage message      = new MimeMessage(session);
+            MimeMessage message      = new MimeMessage(remetente.getSession());
             //Cria o corpo da mensagem
             BodyPart messageBodyPart = new MimeBodyPart();
             //Cria uma parte nova da mensagem

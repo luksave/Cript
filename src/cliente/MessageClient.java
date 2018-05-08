@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author lucas
+ * @author Bruno e Lucas
  */
 public class MessageClient {
     

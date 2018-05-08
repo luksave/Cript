@@ -1,47 +1,23 @@
 package email;
 
 import java.io.*;
-import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
 /**
  *
- * @author lucas
+ * @author Bruno e Lucas
  */
 public class ReceiveEmail {
 
-    private String receivingHost;
                 
     public ReceiveEmail(Gmail login){
     
-        Properties prop = new Properties();
-        
-        this.receivingHost = "imaps.gmail.com";
-        
-        prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        prop.put("mail.smtp.auth", true);
-        prop.put("mail.smtp.starttls.enable", true);
-        prop.put("mail.smtp.host", "smtp.gmail.com");
-        prop.put("mail.smtp.port", "587");
-        prop.put("mail.store.protocol", "imaps");
-        
-        Session session = Session.getInstance(prop, new javax.mail.Authenticator(){
-
-            @Override
-            protected javax.mail.PasswordAuthentication getPasswordAuthentication(){
-
-                return new javax.mail.PasswordAuthentication(login.getUser(), login.getPass());
-
-            }
-
-        });
-    
         try {
             
-            Store store = session.getStore("imaps");
+            Store store = login.getSession().getStore("imaps");
             
-            store.connect(this.receivingHost, login.getUser(), login.getPass());
+            store.connect(login.getReceivingHost(), login.getUser(), login.getPass());
             
             Folder folder = store.getFolder("https://mail.google.com/mail/u/0/#inbox");
             

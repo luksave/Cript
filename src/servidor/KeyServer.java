@@ -2,7 +2,7 @@ package servidor;
 
 /**
  *
- * @author lucas
+ * @author Bruno e Lucas
  */
 import java.io.BufferedReader;
 import java.io.IOException;

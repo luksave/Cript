@@ -1,17 +1,21 @@
 package criptomail;
 
+import email.login;
+
 /**
  *
- * @author lucas
+ * @author Bruno e Lucas
  */
 public class Criptomail {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+        public static void main(String[] args) {
         // TODO code application logic here
-        // - Chamar o cliente ou o servidor.
+        
+        login tela = new login();
+        
+        tela.setVisible(true);
     }
-    
 }
