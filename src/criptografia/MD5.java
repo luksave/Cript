@@ -16,8 +16,8 @@ public class MD5 {
 			byte[] hashBytes = digest.digest(str.getBytes());
 			return convertToHexString(hashBytes);
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+                    // TODO Auto-generated catch block
+
 		}
 		return null;
 	}
