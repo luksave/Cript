@@ -8,7 +8,8 @@ import javax.swing.JOptionPane;
  * @author Lucas
  */
 
-public class AES {
+public class AsymmetricCript {
+    
     public static TwoKeysGenerator par;
     public static TwoKeysStore parUsuario;
     
@@ -16,7 +17,7 @@ public class AES {
     private static final StringBuffer chavePrivada = new StringBuffer();
     
     public static void main(String[] args) throws NoSuchAlgorithmException{
-      int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogButton = JOptionPane.YES_NO_OPTION;
       
         int possuiChave 
               = JOptionPane.showConfirmDialog (
@@ -28,22 +29,13 @@ public class AES {
             String cPublica = JOptionPane.showInputDialog("Digite a chave publica");
             String cPrivada = JOptionPane.showInputDialog("Digite a chave privada");
             
-            parUsuario = new TwoKeysStore(cPublica, cPrivada);
-            
-            
+            parUsuario = new TwoKeysStore(cPublica, cPrivada);          
             
         }else{
             par = new TwoKeysGenerator();
             parUsuario = new TwoKeysStore(par.getChavePublica(), par.getChavePrivada());
         
-        }
-            
-            
-        
-        
-        
-  
-      
+        }  
         
     }
       

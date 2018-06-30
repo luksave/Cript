@@ -70,7 +70,7 @@ public class MessageClient {
                                     //2 - Para quando estiver requistando a chave
                                 envio.append(dataField.getText());
                                 envio.append('-');
-                                envio.append(AES.par.getChavePublica());
+                                envio.append(AsymmetricCript.par.getChavePublica());
 
                     out.println(envio);
                 
