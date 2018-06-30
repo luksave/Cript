@@ -74,8 +74,10 @@ public class KeyServer {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
                 //Mensagem de boas vindas.
-                out.println("Cliente: " + clientNumber);
-            
+                out.println("Cliente: " + clientNumber + "\n"
+                          +"Para armazenar chave:\n\t 1-ID-CHAVE\n"
+                          +"Para buscar chave:   \n\t 2-ID");
+                    
                 //Receber a mensagem do cliente
                 if (true) {
                     String[] dados;
@@ -85,27 +87,50 @@ public class KeyServer {
                         //Separa a String em ID e Chave usando o caractere - como 
                         //separador
                         dados = input.split("-");
+                        
+                        if("1".equals(dados[0])){
+                        
+                            //Insere os valores lidos dentro do objeto idchave
+                            idchave.setID   (dados[1]);
+                            idchave.setChave(dados[2]);
 
-                        //Insere os valores lidos dentro do objeto idchave
-                        idchave.setID   (dados[0]);
-                        idchave.setChave(dados[1]);
+                            storage.add(idchave);
 
-                        storage.add(idchave);
+                            //Informa no prompt do servidor quem foi armazenado
+                            System.out.print("\nChave armazenada:"
+                                           + "\nID     - " + storage.get(clientNumber).getID()
+                                           + "\nChave - "  + storage.get(clientNumber).getChave() 
+                                           + "\n");
 
-                        //Informa no prompt do servidor quem foi armazenado
-                        System.out.print("\nChave armazenada:"
-                                       + "\nID     - " + storage.get(clientNumber).getID()
-                                       + "\nChave - "  + storage.get(clientNumber).getChave() 
-                                       + "\n");
+                            //Mandando a mensagem para o cliente
+                            out.println(  "\nChave armazenada:"
+                                        + "\nID     - " + storage.get(clientNumber).getID()
+                                        + "\nChave - "  + storage.get(clientNumber).getChave());
 
-                        //Mandando a mensagem para o cliente
-                        out.println(  "\nChave armazenada:"
-                                    + "\nID     - " + storage.get(clientNumber).getID()
-                                    + "\nChave - "  + storage.get(clientNumber).getChave());
+                    
+                        }else if("2".equals(dados[0])){
+                            
+                            //Para retornar uma chave salva
+                            String id = dados[1];
+                            
+                            for(int i = 0; i < storage.size(); i++){
+                                if(id.equals(storage.get(i).getID())){
+                                    //Informa no prompt do servidor quem foi armazenado
+                                    System.out.print("\nChave requisitada:"
+                                                   + "\nID     - " + storage.get(i).getID()
+                                                   + "\nChave - "  + storage.get(i).getChave() 
+                                                   + "\n");
 
-                        out.println("FIM");
+                                    //Mandando a mensagem para o cliente
+                                    out.println(  "\nChave requisitada:"
+                                                + "\nID     - " + storage.get(i).getID()
+                                                + "\nChave - "  + storage.get(i).getChave());
+
+                                }
+                            }
+                            
+                        }
                     }
-                
                 }
             }
             catch(IOException e){

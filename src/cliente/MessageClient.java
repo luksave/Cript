@@ -4,6 +4,7 @@ package cliente;
  *
  * @author Bruno e Lucas
  */
+import criptografia.TwoKeysGenerator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -19,14 +20,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import criptografia.*;
+
+
 public class MessageClient {
     
     private BufferedReader in;
     private PrintWriter out;
+    private int option;
     private final JFrame frame = new JFrame("Cliente de Chaves");
     private JTextField dataField = new JTextField(40);
     private JTextArea messageArea = new JTextArea(8, 60);
-    private final TwoKeysGenerator par;
+    
     /**
      * Executa a aplicação Cliente. Mostra um diálogo pedindo ao cliente
      * o seu ID e sua chave pública e então se conecta com o servidor
@@ -36,7 +41,7 @@ public class MessageClient {
     public MessageClient() throws NoSuchAlgorithmException{
     
         //Par de chaves
-        this.par = new TwoKeysGenerator();
+        //AES.par = new TwoKeysGenerator();
         
         // Layout GUI
         messageArea.setEditable(false);
@@ -60,9 +65,12 @@ public class MessageClient {
                 String response;
                 
                 StringBuffer    envio = new StringBuffer();
+                                //envio.append(option.toString) 
+                                    //1 - Para quando estiver armazenando a chave
+                                    //2 - Para quando estiver requistando a chave
                                 envio.append(dataField.getText());
                                 envio.append('-');
-                                envio.append(par.getChavePublica());
+                                envio.append(AES.par.getChavePublica());
 
                     out.println(envio);
                 
@@ -85,8 +93,13 @@ public class MessageClient {
         
     }
     
+    
+    // 1 - Para enviar ID-CHAVE
+    // 2 - Para resgatar CHAVE através de um ID
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
     
+        //this.option = op; Recebido como parâmetro da chamada 
+        
         MessageClient client = new MessageClient();
         client.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         client.frame.pack();
@@ -114,7 +127,7 @@ public class MessageClient {
         
         //Obtem a saída do servidor e coloca dentro do campo de texto 
         //messageArea
-        for (int i = 0; i < 3; i++) {
+        while (in.readLine() != null) {
             messageArea.append(in.readLine() + "\n");
         }
         
