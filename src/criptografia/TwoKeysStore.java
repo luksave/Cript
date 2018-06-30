@@ -8,23 +8,23 @@ import java.security.PublicKey;
  * @author lucas
  */
 public class TwoKeysStore {
-    
-    private PrivateKey privateKey;
-    private PublicKey publicKey;
+   
+    private static PrivateKey privateKey;
+    private static PublicKey publicKey;
     
     public TwoKeysStore(PrivateKey priKey, PublicKey pubKey){
-        this.privateKey = priKey;
-        this.publicKey  = pubKey;
+        privateKey = priKey;
+        publicKey  = pubKey;
           
     }
     
     public PrivateKey getPrivateKey() {
-        return this.privateKey;
+        return privateKey;
         
     }
 
     public PublicKey getPublicKey() {
-            return this.publicKey;
+        return publicKey;
     
     }
     
