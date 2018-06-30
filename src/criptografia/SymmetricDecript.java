@@ -1,10 +1,14 @@
 package criptografia;
 
 import java.io.*;
+import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
+import servidor.KeyServer;
 import sun.misc.BASE64Decoder;
 
 /**
@@ -13,13 +17,42 @@ import sun.misc.BASE64Decoder;
  */
 public class SymmetricDecript {
     
-    public static void main(String args[]) throws NoSuchAlgorithmException, FileNotFoundException, IOException{
-        int dialogButton = JOptionPane.YES_NO_OPTION;
+    public static void main(String args[]) 
+            throws NoSuchAlgorithmException, FileNotFoundException, 
+                   IOException,              GeneralSecurityException{
         
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        BASE64Decoder decoder = new BASE64Decoder();
         //Em vez de new SymmetricKeyGenerator(); e SymmetricKeyGenerator.getKey(),
-        //obter a chave simétrice descriptografando-a com Asymmetric. A chave está 
+        //obter a chave simétrica descriptografando-a com Asymmetric. A chave está 
         //no arquivo key.arq.
+        
+        //Recuperando a chave pública
+        KeyServer.main(args);
+        String chavePublicaRemetente = JOptionPane.showInputDialog("Digite a chave publica do remetente");
+        PublicKey cPub = ConvertStringToKey.stringToPublicKey(chavePublicaRemetente);
 
+        //Armazenando todo o conteúdo do arquivo dentro de uma string
+        File keyFile = new File("key.arq");
+        FileReader fReader = new FileReader(keyFile);
+        String conteudo;
+        
+        try (BufferedReader bReader = new BufferedReader(fReader)) {
+            conteudo = "";
+            
+            while(bReader.ready())
+                conteudo += bReader.readLine();
+        
+        }
+        
+        //Fazendo a chamada para descriptografar o arquivo key.arq e recuperar a chave
+        AsymmetricCript ac    = new AsymmetricCript();
+        String chaveSimetrica = ac.decryptText(conteudo, cPub);
+        
+        //Chave Simétrica recuperada
+        byte[] chaveCodificada = decoder.decodeBuffer(chaveSimetrica);
+        SecretKey simKey = new SecretKeySpec(chaveCodificada,0, chaveCodificada.length, "DES");  
+        
         int novaDescriptografia = JOptionPane.showConfirmDialog (
                         null, 
                         "Descriptografar novo arquivo?",
@@ -30,7 +63,7 @@ public class SymmetricDecript {
 
             String nomeArquivo = JOptionPane.showInputDialog("Digite o nome do arquivo");
             
-            //TODO - Criptografar arquivo nomeArquivo
+            //TODO - Descriptografar arquivo nomeArquivo
             //Onde nomeArquivo deve ser um caminho completo até o arquivo caso 
             //este não esteja na mesma pasta dos fontes.            
             File file = new File(nomeArquivo);
@@ -39,8 +72,9 @@ public class SymmetricDecript {
             BufferedReader leitor = new BufferedReader(new FileReader(file));
 
             //Lê linha por linha de nomeArquivo, criptografa e escreve em msg.arq
+            //A mensagem descriptografada não deve ser salva em um arquivo
             while ((linha = leitor.readLine()) != null){
-                linha = decrypt(linha, SymmetricKeyGenerator.getKey());
+                linha = decrypt(linha, simKey);
                 System.out.print(linha);
                 
             }

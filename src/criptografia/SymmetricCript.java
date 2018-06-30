@@ -50,9 +50,10 @@ public class SymmetricCript {
             while ((linha = leitor.readLine()) != null){
                 linha = encrypt(linha, SymmetricKeyGenerator.getKey());
                 escritor.append(linha);
-                escritor.close();
                 
             }
+
+            escritor.close();
             
             //Pergunta se o usuário deseja criptografar novamente um arquivo
             novaCriptografia = JOptionPane.showConfirmDialog (
@@ -79,7 +80,7 @@ public class SymmetricCript {
             System.out.println("Exceção = " + ex);
             
         }
-
+            
         return textoCriptografado;
 
     }    

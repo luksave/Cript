@@ -115,7 +115,7 @@ public class KeyServer {
                             
                             for(int i = 0; i < storage.size(); i++){
                                 if(id.equals(storage.get(i).getID())){
-                                    //Informa no prompt do servidor quem foi armazenado
+                                    //Informa no prompt do servidor quem foi recuperado
                                     System.out.print("\nChave requisitada:"
                                                    + "\nID     - " + storage.get(i).getID()
                                                    + "\nChave - "  + storage.get(i).getChave() 

@@ -1,8 +1,21 @@
 package criptografia;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.util.Base64;
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,7 +27,13 @@ public class AsymmetricCript {
     public static TwoKeysGenerator par;
     public static TwoKeysStore parUsuario;
     
-    public static void main(String[] args) throws NoSuchAlgorithmException, GeneralSecurityException{
+    private static Cipher cipher;
+    
+    
+    public AsymmetricCript() throws NoSuchAlgorithmException, GeneralSecurityException{
+        
+        cipher = Cipher.getInstance("RSA");
+        
         int dialogButton = JOptionPane.YES_NO_OPTION;
       
         //Pergunta se o usuário já possui um par de chaves
@@ -38,9 +57,62 @@ public class AsymmetricCript {
             parUsuario = new TwoKeysStore(par.getPrivateKey(), par.getPublicKey());
         
         } 
+    
+    }
+    
+    //Criptografia da chave simétrica usando a chave publica do destinatário
+    // 1 - Recuperar a chave Publica do destinatário (Pode ser feito em Receber.java)
+    // 2 - Criptografar a chave simétrica usada no AES
+    // 3 - Escrever a chave criptografada em um arquivo 
+    public void encrypt(byte[] input, PublicKey key) 
+            throws IOException, GeneralSecurityException {
         
+        File output = new File("key.arq");
         
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+        
+        writeToFile(output, cipher.doFinal(input));
+    
+    }
+
+    public Key decrypt(byte[] input, PublicKey key) 
+            throws IOException, GeneralSecurityException {
+        
+        cipher.init(Cipher.DECRYPT_MODE, key);
+        
+        Key chaveSimetrica;
+        
+        chaveSimetrica = new SecretKeySpec(input, 0, input.length, "AES");
+        
+        return chaveSimetrica;
         
     }
+    
+    public String decryptText(String msg, PublicKey key)
+                    throws InvalidKeyException,       UnsupportedEncodingException, 
+                           IllegalBlockSizeException, BadPaddingException {
+        
+        cipher.init(Cipher.DECRYPT_MODE, key);
+        
+        byte[] byteArr = msg.getBytes(StandardCharsets.UTF_8);
+        
+        return new String(cipher.doFinal(byteArr), "UTF-8");
+    
+    }
+
+    
+    private void writeToFile(File output, byte[] toWrite) 
+            throws IllegalBlockSizeException, BadPaddingException, IOException {
+        
+        try (FileOutputStream fos = new FileOutputStream(output)) {
+            fos.write(toWrite);
+            fos.flush();
+        }
+
+    }
+
         
 }
+    
+    
+
