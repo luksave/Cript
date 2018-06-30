@@ -19,17 +19,15 @@ import javax.swing.JOptionPane;
 
 public class RSACript {
     
-    public static TwoKeysStore parUsuario;
-    
     public static void main(String args[]) throws NoSuchAlgorithmException, FileNotFoundException, IOException, Exception{
         int dialogButton = JOptionPane.YES_NO_OPTION;
 
         //Abre o arquivo msg.arq para escrita
-        BufferedWriter escritor = new BufferedWriter(new FileWriter("msg.arq", true));
+        BufferedWriter escritor = new BufferedWriter(new FileWriter("hash.arq", true));
         
         //Lê a mensagem do e-mail, criptografa e adiciona ao arquivo msg.arq
         String msg = JOptionPane.showInputDialog("Digite a mensagem"); 
-        String msgCriptografada = encrypt(msg, SymmetricKeyGenerator.getKey());
+        String msgCriptografada = encrypt(msg, AsymmetricCript.parUsuario.getPrivateKey());
         escritor.append(msgCriptografada);
         
         int novaCriptografia = JOptionPane.showConfirmDialog (
