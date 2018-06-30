@@ -1,9 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package criptografia;
+
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 /**
  *
@@ -11,26 +9,24 @@ package criptografia;
  */
 public class TwoKeysStore {
     
-    private String cPublica;
-    private String cPrivada;
+    private PrivateKey privateKey;
+    private PublicKey publicKey;
     
-    public TwoKeysStore(String chavePublica, String chavePrivada){
-        
-        this.cPublica = chavePublica;
-        this.cPrivada = chavePrivada;
+    public TwoKeysStore(PrivateKey priKey, PublicKey pubKey){
+        this.privateKey = priKey;
+        this.publicKey  = pubKey;
           
     }
     
-    public String getChavePublica() {
-        return cPublica;
+    public PrivateKey getPrivateKey() {
+        return this.privateKey;
         
     }
 
-    public String getChavePrivada() {
-        return cPrivada;
-        
+    public PublicKey getPublicKey() {
+            return this.publicKey;
+    
     }
-
     
     
 }

@@ -38,7 +38,7 @@ public class SymmetricCript {
 
             String nomeArquivo = JOptionPane.showInputDialog("Digite o nome do arquivo");
             
-            //TODO - Criptografar arquivo nomeArquivo
+            //Criptografar arquivo nomeArquivo
             //Onde nomeArquivo deve ser um caminho completo até o arquivo caso 
             //este não esteja na mesma pasta dos fontes.            
             File file = new File(nomeArquivo);

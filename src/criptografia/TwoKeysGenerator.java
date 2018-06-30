@@ -2,46 +2,66 @@ package criptografia;
 
 /**
  *
- * @author Bruno e Lucas
- */
-import java.security.*;
+ * @author Lucas
+ */import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 public class TwoKeysGenerator {
-    
-    private final KeyPairGenerator geraChave;
-    
-    private StringBuffer cPublica = new StringBuffer();
-    private StringBuffer cPrivada = new StringBuffer();
-    
-    //Costrutor das chaves
-    public TwoKeysGenerator() throws NoSuchAlgorithmException{
-            
-        this.geraChave = KeyPairGenerator.getInstance("RSA");
-        this.geraChave.initialize(512);//Esse parâmetro refere-se ao tamanho da chave 
-                                       //Para RSA o tamanho da chave é de pelo menos 512 bits
-        
-        byte[] chaveMais  = geraChave.genKeyPair().getPublic().getEncoded();
-        byte[] chaveMenos = geraChave.genKeyPair().getPrivate().getEncoded();
-        
-        //Armazenando a chave Pública
-        for (int i = 0; i < chaveMais.length; ++i)
-            cPublica.append(chaveMais[i]);
-        
-        //Armazenando a chave Privada
-        for (int i = 0; i < chaveMenos.length; ++i)
-            cPrivada.append(chaveMenos[i]);
-          
-    }
-    
-    public String getChavePublica() {
-        return cPublica.toString();
-        
-    }
 
-    public String getChavePrivada() {
-        return cPrivada.toString();
-        
-    }
+	private KeyPairGenerator keyGen;
+	private KeyPair pair;
+	private PrivateKey privateKey;
+	private PublicKey publicKey;
 
-    
+	public TwoKeysGenerator(int keylength) throws NoSuchAlgorithmException, NoSuchProviderException {
+		this.keyGen = KeyPairGenerator.getInstance("RSA");
+		this.keyGen.initialize(keylength);
+	}
+
+	public void createKeys() {
+		this.pair = this.keyGen.generateKeyPair();
+		this.privateKey = pair.getPrivate();
+		this.publicKey = pair.getPublic();
+	}
+
+	public PrivateKey getPrivateKey() {
+		return this.privateKey;
+	}
+
+	public PublicKey getPublicKey() {
+		return this.publicKey;
+	}
+
+	public void writeToFile(String path, byte[] key) throws IOException {
+		File f = new File(path);
+		f.getParentFile().mkdirs();
+
+		FileOutputStream fos = new FileOutputStream(f);
+		fos.write(key);
+		fos.flush();
+		fos.close();
+	}
+
+	public static void main(String[] args) {
+		GenerateKeys gk;
+		try {
+			gk = new GenerateKeys(1024);
+			gk.createKeys();
+			gk.writeToFile("KeyPair/publicKey", gk.getPublicKey().getEncoded());
+			gk.writeToFile("KeyPair/privateKey", gk.getPrivateKey().getEncoded());
+		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+			System.err.println(e.getMessage());
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
+
+	}
+
 }

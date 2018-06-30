@@ -2,9 +2,9 @@ package cliente;
 
 /**
  *
- * @author Bruno e Lucas
+ * @author Lucas
  */
-import criptografia.TwoKeysGenerator;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -70,7 +70,7 @@ public class MessageClient {
                                     //2 - Para quando estiver requistando a chave
                                 envio.append(dataField.getText());
                                 envio.append('-');
-                                envio.append(AsymmetricCript.par.getChavePublica());
+                                envio.append(AsymmetricCript.par.getPublicKey());
 
                     out.println(envio);
                 
