@@ -3,6 +3,8 @@ package trocaEmail;
 import cliente.MessageClient;
 import criptografia.AsymmetricCript;
 import criptografia.ConvertStringToKey;
+import criptografia.MD5;
+import criptografia.RSACript;
 import criptografia.SymmetricCript;
 import criptografia.SymmetricKeyGenerator;
 import java.io.IOException;
@@ -50,6 +52,8 @@ public class Enviar {
          * hashing criptografado em um arquivo (hash.arq);
          */
         
+        MD5 hash = new MD5();
+        
         //TODO - PARTE-PAIVA
         
         /**
@@ -60,6 +64,8 @@ public class Enviar {
          * Essa chave será usada para criptografar o texto e arquivos anexos da
          * mensagem que será enviada;
          */
+        RSACript rsa = new RSACript();
+        
         SymmetricKeyGenerator sc = new SymmetricKeyGenerator();
         
         /**
