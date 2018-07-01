@@ -3,6 +3,7 @@ package trocaEmail;
 import cliente.MessageClient;
 import criptografia.AsymmetricCript;
 import criptografia.ConvertStringToKey;
+import criptografia.MD5;
 import criptografia.SymmetricDecript;
 import java.io.BufferedReader;
 import java.io.File;
@@ -89,7 +90,7 @@ public class Receber {
          * a transmissão;
          */
     
-        //TODO - Parte Paiva
+        MD5 hash = new MD5();
     
         
     }
