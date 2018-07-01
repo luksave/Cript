@@ -42,19 +42,13 @@ public class Enviar {
          * existam anexos), o software deverá calcular um hashing da mensagem e 
          * arquivos de forma a garantir que o destinatário valide a integridade 
          * da mensagem caso o e-mail seja alterado durante a transmissão;
-         */
-        
-        //TODO - PARTE-PAIVA
-        
-        /**
+         * 
          *4 -  Usando a chave privada do usuário corrente, o software deverá 
          * criptografar o hashing calculado na etapa anterior e armazenar o 
          * hashing criptografado em um arquivo (hash.arq);
          */
         
         MD5 hash = new MD5();
-        
-        //TODO - PARTE-PAIVA
         
         /**
          *5 - O software deverá gerar uma chave de criptografia simétrica 

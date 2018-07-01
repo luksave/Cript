@@ -1,23 +1,10 @@
 package criptografia;
 
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.security.GeneralSecurityException;
-import java.security.InvalidKeyException;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.util.Base64;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.spec.SecretKeySpec;
+import java.io.*;
+import java.security.*;
+import javax.crypto.*;
 import javax.swing.JOptionPane;
+import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -54,8 +41,8 @@ public class AsymmetricCript {
             
         //Senão, gere um par de chave e armazene-as
         }else{
-            TwoKeysGenerator par = new TwoKeysGenerator(1024);
-            parUsuario = new TwoKeysStore(par.getPrivateKey(), par.getPublicKey());
+            TwoKeysGenerator parTemp = new TwoKeysGenerator(1024);
+            parUsuario = new TwoKeysStore(parTemp.getPrivateKey(), parTemp.getPublicKey());
         
         } 
     
@@ -96,6 +83,19 @@ public class AsymmetricCript {
             fos.flush();
         }
 
+    }
+
+    public String decryptHash(String msg, PublicKey pKey)
+                    throws InvalidKeyException,       UnsupportedEncodingException, 
+                           IllegalBlockSizeException, BadPaddingException {
+        
+        cipher.init(Cipher.DECRYPT_MODE, pKey);
+        
+        byte[] byteArr = msg.getBytes(StandardCharsets.UTF_8);
+        
+        return new String(cipher.doFinal(byteArr), "UTF-8");
+          
+        
     }
 
         
