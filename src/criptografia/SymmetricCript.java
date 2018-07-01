@@ -16,16 +16,17 @@ import java.io.*;
  */
 public class SymmetricCript {
     
-    public static void main(String args[]) throws NoSuchAlgorithmException, FileNotFoundException, IOException{
+    public static void main(SymmetricKeyGenerator sc) 
+            throws NoSuchAlgorithmException, FileNotFoundException, IOException{
+        
         int dialogButton = JOptionPane.YES_NO_OPTION;
-        new SymmetricKeyGenerator();
 
         //Abre o arquivo msg.arq para escrita
         BufferedWriter escritor = new BufferedWriter(new FileWriter("msg.arq", true));
         
         //Lê a mensagem do e-mail, criptografa e adiciona ao arquivo msg.arq
         String msg = JOptionPane.showInputDialog("Digite a mensagem"); 
-        String msgCriptografada = encrypt(msg, SymmetricKeyGenerator.getKey());
+        String msgCriptografada = encrypt(msg, sc.getKey());
         escritor.append(msgCriptografada);
         
         int novaCriptografia = JOptionPane.showConfirmDialog (
@@ -44,11 +45,11 @@ public class SymmetricCript {
             File file = new File(nomeArquivo);
             String linha;
             
-            BufferedReader leitor   = new BufferedReader(new FileReader(file));
+            BufferedReader leitor = new BufferedReader(new FileReader(file));
 
             //Lê linha por linha de nomeArquivo, criptografa e escreve em msg.arq
             while ((linha = leitor.readLine()) != null){
-                linha = encrypt(linha, SymmetricKeyGenerator.getKey());
+                linha = encrypt(linha, sc.getKey());
                 escritor.append(linha);
                 
             }

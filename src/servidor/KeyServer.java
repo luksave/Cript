@@ -73,11 +73,7 @@ public class KeyServer {
                         new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-                //Mensagem de boas vindas.
-                out.println("Cliente: " + clientNumber + "\n"
-                          +"Para armazenar chave:\n\t 1-ID-CHAVE\n"
-                          +"Para buscar chave:   \n\t 2-ID");
-                    
+             
                 //Receber a mensagem do cliente
                 if (true) {
                     String[] dados;
@@ -102,11 +98,6 @@ public class KeyServer {
                                            + "\nChave - "  + storage.get(clientNumber).getChave() 
                                            + "\n");
 
-                            //Mandando a mensagem para o cliente
-                            out.println(  "\nChave armazenada:"
-                                        + "\nID     - " + storage.get(clientNumber).getID()
-                                        + "\nChave - "  + storage.get(clientNumber).getChave());
-
                     
                         }else if("2".equals(dados[0])){
                             
@@ -122,9 +113,7 @@ public class KeyServer {
                                                    + "\n");
 
                                     //Mandando a mensagem para o cliente
-                                    out.println(  "\nChave requisitada:"
-                                                + "\nID     - " + storage.get(i).getID()
-                                                + "\nChave - "  + storage.get(i).getChave());
+                                    out.println(storage.get(i).getChave());
 
                                 }
                             }

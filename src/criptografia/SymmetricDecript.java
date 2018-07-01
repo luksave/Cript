@@ -3,6 +3,7 @@ package criptografia;
 import java.io.*;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.PublicKey;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -22,15 +23,15 @@ public class SymmetricDecript {
                    IOException,              GeneralSecurityException{
         
         int dialogButton = JOptionPane.YES_NO_OPTION;
+        
         BASE64Decoder decoder = new BASE64Decoder();
+        
         //Em vez de new SymmetricKeyGenerator(); e SymmetricKeyGenerator.getKey(),
         //obter a chave simétrica descriptografando-a com Asymmetric. A chave está 
         //no arquivo key.arq.
         
         //Recuperando a chave pública
-        KeyServer.main(args);
-        String chavePublicaRemetente = JOptionPane.showInputDialog("Digite a chave publica do remetente");
-        PublicKey cPub = ConvertStringToKey.stringToPublicKey(chavePublicaRemetente);
+        PrivateKey cPri = AsymmetricCript.parUsuario.getPrivateKey();
 
         //Armazenando todo o conteúdo do arquivo dentro de uma string
         File keyFile = new File("key.arq");
@@ -47,7 +48,7 @@ public class SymmetricDecript {
         
         //Fazendo a chamada para descriptografar o arquivo key.arq e recuperar a chave
         AsymmetricCript ac    = new AsymmetricCript();
-        String chaveSimetrica = ac.decryptText(conteudo, cPub);
+        String chaveSimetrica = ac.decryptText(conteudo, cPri);
         
         //Chave Simétrica recuperada
         byte[] chaveCodificada = decoder.decodeBuffer(chaveSimetrica);

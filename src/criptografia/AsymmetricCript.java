@@ -10,6 +10,7 @@ import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Base64;
 import javax.crypto.BadPaddingException;
@@ -61,9 +62,8 @@ public class AsymmetricCript {
     }
     
     //Criptografia da chave simétrica usando a chave publica do destinatário
-    // 1 - Recuperar a chave Publica do destinatário (Pode ser feito em Receber.java)
-    // 2 - Criptografar a chave simétrica usada no AES
-    // 3 - Escrever a chave criptografada em um arquivo 
+    // 1 - Criptografar a chave simétrica usada no AES
+    // 2 - Escrever a chave criptografada em um arquivo 
     public void encrypt(byte[] input, PublicKey key) 
             throws IOException, GeneralSecurityException {
         
@@ -74,21 +74,8 @@ public class AsymmetricCript {
         writeToFile(output, cipher.doFinal(input));
     
     }
-
-    public Key decrypt(byte[] input, PublicKey key) 
-            throws IOException, GeneralSecurityException {
-        
-        cipher.init(Cipher.DECRYPT_MODE, key);
-        
-        Key chaveSimetrica;
-        
-        chaveSimetrica = new SecretKeySpec(input, 0, input.length, "AES");
-        
-        return chaveSimetrica;
-        
-    }
     
-    public String decryptText(String msg, PublicKey key)
+    public String decryptText(String msg, PrivateKey key)
                     throws InvalidKeyException,       UnsupportedEncodingException, 
                            IllegalBlockSizeException, BadPaddingException {
         
